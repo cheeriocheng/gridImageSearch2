@@ -28,6 +28,7 @@ public class SearchActivity extends Activity {
 	EditText etQuery;
 	GridView gvResults;
 	Button btnSearch;
+	int startCount= 0 ;
 	String searchCriteria = "";
 	ArrayList<ImageResult> imageResults = new ArrayList<ImageResult>();
 	ImageResultsArrayAdapter imageAdapter;
@@ -102,13 +103,26 @@ public class SearchActivity extends Activity {
 		if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 	     currentSetting = (Setting) data.getSerializableExtra("settings");
 	     searchCriteria = currentSetting.getQuery();
+	     //TODO update results 
+//	     onImageSearch();
 	  }
 	} 
 	
+	//push button to load more image 
+	public void onLoadMore(View v){
+		startCount += 8 ;
+		onImageSearch(v);
+	}
+	
+	
 	public void onImageSearch(View v) {
 		String query = etQuery.getText().toString();
-		Toast.makeText(this, "Searching for " + query, Toast.LENGTH_LONG)
-				.show();
+		if (startCount == 0){
+			Toast.makeText(this, "Searching for " + query, Toast.LENGTH_LONG)
+					.show();
+			View b = findViewById(R.id.bt_more);
+			b.setVisibility(View.VISIBLE);
+		}
 		Log.d("DEBUG", "seach parameter: " + searchCriteria);
 		
 		// load async http client
@@ -116,7 +130,7 @@ public class SearchActivity extends Activity {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(
 				"https://ajax.googleapis.com/ajax/services/search/images?rsz=8&"
-						+ "start=" + 0 + searchCriteria +"&v=1.0&q=" + Uri.encode(query),
+						+ "start=" + Integer.toString(startCount) + searchCriteria +"&v=1.0&q=" + Uri.encode(query),
 				// client.get(Uri.encode("https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=8&q=android"),
 				new JsonHttpResponseHandler() {
 					@Override
@@ -147,6 +161,7 @@ public class SearchActivity extends Activity {
 						Log.d("DEBUG", "JsonHttpResponseHandler fail");
 					}
 				});
+		
 
 	}
 

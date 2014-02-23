@@ -13,11 +13,24 @@ import android.widget.SpinnerAdapter;
 
 public class SettingActivity extends Activity {
 
+
+	public void setSpinnerToValue(Spinner spinner, String value) {
+		int index = 0;
+		SpinnerAdapter adapter = spinner.getAdapter();
+		for (int i = 0; i < adapter.getCount(); i++) {
+			Log.d("DEBUG","set spinner "+i+" "+ adapter.getItem(i) + " " + value );
+			if (adapter.getItem(i).toString().equalsIgnoreCase(value)) {
+				index = i;
+			}
+		}
+		spinner.setSelection(index);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
-		//read settings from serach activity, if exists. 
+		//read settings from search activity, if exists. 
 		Setting s = (Setting) getIntent().getSerializableExtra("settings");
 		//if no setting is given 
 		if (s==null) {
@@ -25,7 +38,7 @@ public class SettingActivity extends Activity {
 		}
 		//otherwise retrieve previous setting   
 		else {
-			Log.d("DEBUG","set choices to previous");
+			Log.d("DEBUG","set choices to previous. Color filter: "+s.getColor());
 			setSpinnerToValue((Spinner)findViewById(R.id.sp_image_size), s.getSize()); 
 			setSpinnerToValue((Spinner)findViewById(R.id.sp_image_color), s.getColor());
 			setSpinnerToValue((Spinner)findViewById(R.id.sp_image_type), s.getType());
@@ -63,18 +76,7 @@ public class SettingActivity extends Activity {
 		});
 
 	}
-	
 
-	public void setSpinnerToValue(Spinner spinner, String value) {
-		int index = 0;
-		SpinnerAdapter adapter = spinner.getAdapter();
-		for (int i = 0; i < adapter.getCount(); i++) {
-			if (adapter.getItem(i).equals(value)) {
-				index = i;
-			}
-		}
-		spinner.setSelection(index);
-	}
 
 
 }
