@@ -18,7 +18,7 @@ public class SettingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
 		//read settings from serach activity, if exists. 
-		Setting s = (Setting) getIntent().getSerializableExtra("setting");
+		Setting s = (Setting) getIntent().getSerializableExtra("settings");
 		//if no setting is given 
 		if (s==null) {
 			Log.d("DEBUG","no setting received in setting activity");
@@ -49,6 +49,7 @@ public class SettingActivity extends Activity {
 				Setting s = new Setting(sizeValue, colorValue, typeValue,
 						siteValue);
 				Log.d("DEBUG","color filter: "+ colorValue );
+				Log.d("DEBUG","site filter: "+ siteValue );
 
 				Intent i = new Intent(getApplicationContext(),SearchActivity.class);
 				
