@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="settings_size_array">
+		<item>Any</item>
+		<item>Small</item>
+		<item>Medium</item>
+		<item>Large</item>
+	</string-array>
+	
+	<string-array name="settings_color_array">
+		<item>Any</item>
+		<item>Black</item>
+		<item>Red</item>
+		<item>Green</item>
+		<item>Blue</item>
+	</string-array>
+	
+	
+	<string-array name="settings_type_array">
+		<item>Any</item>
+		<item>faces</item>
+		<item>Photo </item>
+		<item>clipart</item>
+		<item>linepart</item>
+	</string-array>
+	
+	
+	
+</resources>
